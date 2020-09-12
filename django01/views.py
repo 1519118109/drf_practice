@@ -77,8 +77,8 @@ class Userview(View):
                 "message": "创建用户失败",
             })
     def put(self,request,*args,**kwargs):
-        print('PUT请求 查询')
+        print('PUT请求 修改')
         return HttpResponse('PUT 访问成功')
     def delete(self,request,*args,**kwargs):
-        print('DELETE请求 查询')
+        print('DELETE请求 删除')
         return HttpResponse('DELETE 访问成功')
