@@ -90,3 +90,4 @@ class StudentAPIView(APIView):
                 "message": '查询单个用户成功',
                 "results": {"username": stu_obj.username, "email": stu_obj.email}
             })
+
