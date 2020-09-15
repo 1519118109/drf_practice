@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
     path('drf01/',include('drf01.urls')),
     path('django01/',include('django01.urls')),
-    path('serializersapp/',include('serializersapp.urls'))
+    path('serializersapp/',include('serializersapp.urls')),
+    path('modelapp/', include('modelapp.urls'))
 ]
