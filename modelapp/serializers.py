@@ -66,12 +66,37 @@ class BookDeSerializers(serializers.ModelSerializer):
         return value
 
 
+class BookListSerializer(serializers.ListSerializer):
+    """
+    使用此序列化器完成同时修改多个对象
+    """
+
+    # 重写update方法完成批量更新
+    def update(self, instance, validated_data):
+        # 要修改的对象  要修改的值
+        # print(self)     # 当前调用的序列化器类
+        # print(instance)  # 要修改的对象
+        # print(validated_data)  # 要修改的值
+        # print("1111", self.child)
+
+        # 将群改修改成每次修改一个
+        for index, obj in enumerate(instance):
+            # print(index)
+            # print(obj)
+            # print(validated_data[index])
+            # TODO 每遍历一次 改变一下下标以及对应值和对象
+            self.child.update(obj, validated_data[index])
+
+        return instance
 
 class BookModelSerializer(serializers.ModelSerializer):
     """
     序列化器与反序列化器整合
     """
     class Meta:
+        # 为修改多个图书提供ListSerializer
+        list_serializer_class = BookListSerializer
+
         model = Book
 
         # 指定的字段  填序列化与反序列所需字段并集
@@ -106,6 +131,13 @@ class BookModelSerializer(serializers.ModelSerializer):
 
     # 全局钩子
     def validate(self, attrs):
+        # 可以通过self.context获取到视图中传递过来的request对象
+        # 比如前段传递密码过来，并不会发验证密码过来，但是会在request中呈现
+        # 因为attrs展示出来的全部是参与序列化或者发反序列化的字段，而模型中没有此字段
+        request = self.context.get("request")
+        print('111',request.data)
+        print('111',attrs)
+
         name = attrs.get("book_name")
         book = Book.objects.filter(book_name=name)
         if book:

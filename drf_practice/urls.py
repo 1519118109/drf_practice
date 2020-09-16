@@ -27,5 +27,6 @@ urlpatterns = [
     path('drf01/',include('drf01.urls')),
     path('django01/',include('django01.urls')),
     path('serializersapp/',include('serializersapp.urls')),
-    path('modelapp/', include('modelapp.urls'))
+    path('modelapp/', include('modelapp.urls')),
+    path('studentapp/', include('studentapp.urls')),
 ]

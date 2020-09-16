@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf01',
     'serializersapp',
     'modelapp',
+    'studentapp',
 ]
 
 MIDDLEWARE = [
